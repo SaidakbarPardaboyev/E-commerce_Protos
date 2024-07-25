@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option go_package = "genproto/auth_service";
+
+package auth_service;
+
+import "google/protobuf/empty.proto";
+import "user_service.proto";
+import "user.proto";
+
+service Admin {
+    rpc AddUser (CreateUser) returns (User);
+    rpc GetUser (PrimaryKey) returns (User);
+    rpc UpdateUser (User) returns (User);
+    rpc DeleteUser (PrimaryKey) returns (google.protobuf.Empty);
+    rpc GetUserProducts (PrimaryKey) returns (Products);
+    rpc GetAllUsers (UserFilter) returns (Users);
+}
+
+message CreateUser {
+    string fullname = 1;
+    string username = 2;
+    string email = 3;
+    string password_hash = 4;
+    string phone = 5;
+    string image = 6;
+    string role = 7;
+}
+
+message UserFilter {
+    int32 limit = 1;
+    int32 page = 2;
+    string fullaname = 3;
+    string location = 4;
+}
+
+message Users {
+    repeated User users = 1;
+    int32 count = 2; 
+}

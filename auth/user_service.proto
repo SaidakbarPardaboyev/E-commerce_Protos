@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "genproto/auth_service";
+
+package auth_service;
+
+import "google/protobuf/empty.proto";
+import "user.proto";
+
+service UserService {
+    rpc GetProfile (PrimaryKey) returns (User);
+    rpc UpdateProfile (User) returns (User);
+    rpc DeleteProfile (PrimaryKey) returns (google.protobuf.Empty);
+    rpc RecommendProducts (PrimaryKey) returns (Products);
+    rpc GetProducts (PrimaryKey) returns (Products);
+}
+
+message User {
+    string id = 1;
+    string fullname = 2;
+    string username = 3;
+    string email = 4;
+    string password_hash = 5;
+    string phone = 6;
+    string image = 7;
+    string role = 8;
+    string created_at = 9;
+    string updated_at = 10;
+}
+
+message Product {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string Images = 4;
+    float price = 5;
+    string discount = 6;
+    int64 stock = 7;
+    string created_at = 8;
+    string updated_at = 9;
+}
+
+message Products {
+    repeated Product products = 1;
+    int32 count = 2;
+}
+
